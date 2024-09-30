@@ -1,16 +1,29 @@
 import mysql.connector as c
 
-conn = c.connect(
+con = c.connect(
     host = "localhost",
-    user = "root",
-    password = ""
+    username = "root",
+    password = "",
+    database = "python",
 )
 
-print(conn)
-cursor = conn.cursor()
+cursor = con.cursor()
 
-cursor.execute("CREATE DATABASE bca_5a")
-cursor.execute("SHOW DATABASES")
+# cursor.execute('CREATE TABLE student (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), city VARCHAR(255))')
 
-for x in cursor:
-    print(x)
+# cursor.execute("SHOW TABLES")
+
+# qry = "INSERT INTO student (name, city) VALUES (%s, %s)"
+# val = ("Uday", "Shapur")
+# cursor.execute(qry, val)
+
+
+qry = "INSERT INTO student (name, city) VALUES (%s, %s)"
+val = [
+    ('Disha', 'Timbavadi'),
+    ('Vishv', 'Near Patel Samal'),
+    ('Mihir', 'Manglore'),
+    ('Darshit', 'Junagadh')
+]
+cursor.executemany(qry, val)
+con.commit()
